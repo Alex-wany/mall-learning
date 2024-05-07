@@ -8,6 +8,11 @@
     <artifactId>mall-learning</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+<!--
+    指定打包方式为pom，表示当前项目是一个父项目，不会生成任何实际的构建产物
+-->
+    <packaging>pom</packaging>
+
     <modules>
         <module>mall-tiny</module>
     </modules>
