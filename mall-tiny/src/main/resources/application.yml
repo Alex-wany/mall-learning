@@ -50,7 +50,7 @@ redis:
     expire:
       authCode: 120 # 验证码超期时间
 
-# 自定义jwt key
+# 自定义jwt key jwt是一种基于token的认证机制 用于在http协议中传递信息
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: mySecret #JWT加解密使用的密钥

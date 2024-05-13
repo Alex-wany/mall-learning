@@ -22,19 +22,26 @@ import java.util.Map;
  * Created by macro on 2018/4/26.
  */
 @Controller
-@Api(tags = "UmsAdminController", description = "后台用户管理")
+@Api(tags = "UmsAdminController", description = "后台用户管理")//用于接口分组 用于swagger文档分类
 @RequestMapping("/admin")
 public class UmsAdminController {
     @Autowired
-    private UmsAdminService adminService;
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+    private UmsAdminService adminService;//自动注入UmsAdminService
+    @Value("${jwt.tokenHeader}")//@Value注解用于获取配置文件中的属性值 用于存储jwt.tokenHeader的值
+    private String tokenHeader;//定义一个字符串变量tokenHeader 用于存储jwt.tokenHeader的值
+    @Value("${jwt.tokenHead}")//获取配置文件中的jwt.tokenHead的值 用于存储jwt.tokenHead的值
+    private String tokenHead;//定义一个字符串变量tokenHead 用于存储jwt.tokenHead的值
+    //@Value使用方法：@Value("${属性名}") 用于获取配置文件中的属性值 需要在类上加上@Component注解 用于将类注册到spring容器中
+    //@Component注解用于将类注册到spring容器中 也可以用@Component的派生注解 例如@Controller @Service @Repository
+    //spring容器会自动扫描这些注解的类并注册到spring容器中 用于实现依赖注入 例如@Autowired注解 用于自动注入依赖对象
+
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
+    //value = "/register"表示请求路径 method = RequestMethod.POST表示请求方法为POST
+    //为什么要用POST请求呢？因为注册用户是对服务器资源的增加操作 为什么增加操作要用POST请求呢？
+    //因为POST请求是幂等的 也就是说多次请求结果是一样的 但是GET请求是不幂等的 也就是说多次请求结果是不一样的 所以增加操作要用POST请求
+    @ResponseBody//用于将返回值转换为json格式的数据 用于返回json格式的数据
     public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
         UmsAdmin umsAdmin = adminService.register(umsAdminParam);
         if (umsAdmin == null) {
